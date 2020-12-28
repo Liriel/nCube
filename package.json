@@ -1,0 +1,15 @@
+{
+  "name": "ncube",
+  "version": "1.0.0",
+  "description": "notification cube",
+  "private": true,
+  "scripts": {
+    "upload": "node node_modules/nodemcu-tool/bin/nodemcu-tool.js upload *.lua",
+    "debug": "node node_modules/nodemcu-tool/bin/nodemcu-tool.js terminal --run server.lua"
+  },
+  "author": "Lassi",
+  "license": "MIT",
+  "dependencies": {
+    "nodemcu-tool": "^3.2.1"
+  }
+}
