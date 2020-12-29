@@ -41,3 +41,4 @@ __pycache__/
 *.pyc
 package-lock.json
 eus_params.lua
+lfs.img

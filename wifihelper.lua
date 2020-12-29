@@ -70,12 +70,23 @@ web.init = function(readyCallback, errorCallback)
             wifi.setmode(wifi.STATION)
             wifi.sta.config({ssid=config.wifi_ssid, pwd=config.wifi_password})
         else
-            print("Reconnecting to WiFi access point...")
+            print("Reconnecting to WiFi access point...", wifi.sta.status())
+            if(wifi.sta.status() == wifi.STA_GOTIP) then 
+              readyCallback() 
+            elseif(wifi.sta.status() == wifi.STA_IDLE) then 
+              wifi.sta.connect()
+            end
         end
     else
         wifi.setmode(wifi.STATION)
         wifi.sta.config({ssid=config.wifi_ssid, pwd=config.wifi_password})
     end
+end
+
+web.dispose = function()
+    wifi.eventmon.unregister(wifi.eventmon.STA_CONNECTED)
+    wifi.eventmon.unregister(wifi.eventmon.STA_GOT_IP)
+    wifi.eventmon.unregister(wifi.eventmon.STA_DISCONNECTED)
 end
 
 return web

@@ -116,6 +116,7 @@ end
 
 
 lights.SetColor = function(r, g, b, w) 
+  effects.stop()
   buffer:fill(r, g, b, w)
   ws2812.write(buffer)
 end

@@ -1,33 +1,42 @@
 -- load modules
-local config = require "config"
-local cancelPin = require "cancelpin"
-local wifiHelper = require "webhelper"
-
+local lights = require "lights"
 local app = {}
 
 function Main()
-    -- check if cancellation pin was set
-    if not cancelPin.check() then
-        print("ABORTING cancel pin set")
-    else
-        print("running main program")
+    -- unload wifi helper
+    require("wifihelper").dispose()
+    package.loaded["wifihelper"] = nil
 
-        -- your code
+    print("running main program")
+    lights.Effect("grow")
+    lights = nil
 
-        print("operations done - going to sleep")
-        -- deep sleep for interval seconds (argument is microseconds)
-        node.dsleep(config.INTERVAL * 1000000)
-    end
+    require("server").run()
 end
 
 onFail = function()
-    print("operations failed - going to sleep")
-    node.dsleep(config.INTERVAL * 1000000)
+    lights.SetColor(255, 0, 0, 0)
+    print("wifi configuration failed")
 end
 
 app.run = function()
-    print("--- my program ---")
-    wifiHelper.init(Main, onFail)
+    -- check if we need to configure wifi
+    if(wifi.sta.status() == wifi.STA_IDLE and not file.exists("eus_params.lua"))then
+      -- todo register callback
+      lights.Effect("random")
+      enduser_setup.start(function()
+        -- stopping EUS does not free port 80
+        node.restart()
+      end, onFail)
+    else
+      -- show the "configuring wifi effect"
+      lights.Effect("lcars")
+      if(wifi.sta.status() == wifi.STA_GOTIP)then
+        Main()
+      else
+        require("wifihelper").init(Main, onFail)
+      end
+    end
 end
 
 return app
