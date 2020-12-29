@@ -13,3 +13,12 @@ upload the lua files
 npm run upload
 ```
 
+upload the lfs image
+```bash
+alias nu="node ./node_modules/nodemcu-tool/bin/nodemcu-tool.js"
+nu upload lfs.img
+nu terminal
+node.setpartitiontable{lfs_size = 0x20000, spiffs_addr = 0x120000, spiffs_size = 0x20000}
+node.LFS.reload("lfs.img")
+```
+
