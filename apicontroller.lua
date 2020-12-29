@@ -40,4 +40,20 @@ apicontroller.set = function(res, color)
   res:finish("OK")
 end
 
+apicontroller.whiteness = function(res, whiteness)
+  if(not pcall(function()tonumber(whiteness)end)) then
+    res:finish("invalid whiteness. number 0-100", 400)
+    return
+  end
+
+  w = math.floor(255 * whiteness / 100)
+  if(w > 255 or w < 0)then
+    res:finish("invalid whiteness. number 0-100", 400)
+    return
+  end
+
+  lights.SetWhiteness(w)
+  res:finish("OK")
+end
+
 return apicontroller

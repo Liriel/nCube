@@ -1,32 +1,176 @@
 <head>
+	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <script src="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.js"></script>
-  <link href="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.css" rel="stylesheet">
+	<script src="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.js"></script>
+	<link href="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+		</script>
+	<style>
+		.appbar {
+			background-color: var(--mdc-theme-primary, #6200ee);
+			line-height: 40px;
+			font-size: 100%;
+			color: white;
+			margin-bottom: 10px;
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 99;
+
+		}
+
+		.color-picker {
+			display: flex;
+			flex-wrap: 1;
+		}
+
+		.color-circle {
+			background: transparent;
+			outline: none;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+
+		.color-circle:last-child {
+			margin-right: inherit;
+		}
+
+		.card-container {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.card {
+			margin-bottom: 20px;
+
+		}
+
+		.card-req {
+			margin-top: 10px;
+			margin-bottom: 5px;
+			display: block;
+		}
+
+		.info {
+			position: fixed;
+			bottom: 10px;
+			width: 100%;
+			background-color: white;
+			text-align: center;
+		}
+
+		.row {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+	</style>
+
+	<script>
+		function setColor(color) {
+			fetch("/api/set/" + color, { method: "PUT" });
+		}
+
+		function startEffect(effect) {
+			fetch("/api/effect/" + effect, { method: "PUT" });
+		}
+	</script>
 </head>
 
-<!--<body style="display:flex;justify-content: center;">-->
-<body>
+<body style="padding-top: 45px">
 
+	<div class="row appbar">
+		<span class="col d-none d-sm-block">&nbsp;</span>
+		<span class="col">nCube</span>
+		<span class="col d-none d-sm-block">&nbsp;</span>
+	</div>
+	<div class="row">
+		<span class="col d-none d-sm-block">&nbsp;</span>
+		<div class="col card-container">
 
-<div class="mdc-slider">
-  <div class="mdc-slider__track">
-    <div class="mdc-slider__track--inactive"></div>
-    <div class="mdc-slider__track--active">
-      <div class="mdc-slider__track--active_fill"></div>
-    </div>
-  </div>
-  <div class="mdc-slider__thumb" role="slider" tabindex="0" aria-label="Continuous slider demo" aria-valuemin="0"
-       aria-valuemax="100" aria-valuenow="50">
-    <div class="mdc-slider__thumb-knob"></div>
-  </div>
-</div>
+			<div class="card">
+				<span class="card-header">Colors</span>
+				<div class="card-body">
+					<div class="color-picker">
+						<div class="color-circle" style="background-color:#f44336" onclick="setColor('f4433600')"></div>
+						<div class="color-circle" style="background-color:#e91e63" onclick="setColor('e91e6300')"></div>
+						<div class="color-circle" style="background-color:#9c27b0" onclick="setColor('9c27b000')"></div>
+						<div class="color-circle" style="background-color:#2196f3" onclick="setColor('2196f300')"></div>
+						<div class="color-circle" style="background-color:#4caf50" onclick="setColor('4caf5000')"></div>
+					</div>
+					<span class="card-req">Request</span>
+					<pre class="card-code">/api/set/RRGGBBWW</pre>
+				</div>
+			</div>
 
-	<button class="mdc-button foo-button">
-  <div class="mdc-button__ripple"></div>
-  <span class="mdc-button__label">Button</span>
-</button>
-<script>
-  mdc.slider.MDCSlider.attachTo(document.querySelector('.mdc-slider'));
-  mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
-</script>
+			<div class="card">
+				<span class="card-header">Effects</span>
+				<div class="card-body">
+					<button class="mdc-button foo-button" onclick="startEffect('lcars')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">lcars</span>
+					</button>
+					<button class="mdc-button foo-button" onclick="startEffect('random')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">random</span>
+					</button>
+					<button class="mdc-button foo-button" onclick="startEffect('fadein')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">fadein</span>
+					</button>
+					<button class="mdc-button foo-button" onclick="startEffect('rainbow')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">rainbow</span>
+					</button>
+					<button class="mdc-button foo-button" onclick="startEffect('grow')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">grow</span>
+					</button>
+					<button class="mdc-button foo-button" onclick="startEffect('strip')">
+						<div class="mdc-button__ripple"></div>
+						<span class="mdc-button__label">strip</span>
+					</button>
+
+					<span class="card-req">Request</span>
+					<pre class="card-code">/api/effect/effectname</pre>
+				</div>
+			</div>
+
+			<div class="card">
+				<span class="card-header">Lamp</span>
+				<div class="card-body">
+					<div class="mdc-slider" change="console.log('asdf')">
+						<div class="mdc-slider__track">
+							<div class="mdc-slider__track--inactive"></div>
+							<div class="mdc-slider__track--active">
+								<div class="mdc-slider__track--active_fill"></div>
+							</div>
+						</div>
+						<div class="mdc-slider__thumb" role="slider" tabindex="0" aria-label="Continuous slider demo"
+							aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+							<div class="mdc-slider__thumb-knob"></div>
+						</div>
+					</div>
+					<span class="card-req">Request</span>
+					<pre class="card-code">/api/whiteness/0-100</pre>
+				</div>
+			</div>
+		</div>
+		<span class="col d-none d-sm-block">&nbsp;</span>
+
+		<div class="info row">
+			<span>nCube web interface by Lassi 2020</span>
+		</div>
+
+		<script>
+			sldr = mdc.slider.MDCSlider.attachTo(document.querySelector('.mdc-slider'));
+			sldr.root.addEventListener("change", ()=> console.log("change"));
+			console.log(sldr);
+			mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
+		</script>
 </body>

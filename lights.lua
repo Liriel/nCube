@@ -117,8 +117,12 @@ end
 
 lights.SetColor = function(r, g, b, w) 
   effects.stop()
-  buffer:fill(r, g, b, w)
+  buffer:fill(g, r, b, w)
   ws2812.write(buffer)
+end
+
+lights.SetWhiteness= function(w) 
+  lights.SetColor(0, 0, 0, w)
 end
 
 -- start an effect

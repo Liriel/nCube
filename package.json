@@ -4,7 +4,7 @@
   "description": "notification cube",
   "private": true,
   "scripts": {
-    "upload": "node node_modules/nodemcu-tool/bin/nodemcu-tool.js upload *.lua",
+    "upload": "node node_modules/nodemcu-tool/bin/nodemcu-tool.js upload init.lua lights.lua app.lua",
     "debug": "node node_modules/nodemcu-tool/bin/nodemcu-tool.js terminal --run server.lua"
   },
   "author": "Lassi",
