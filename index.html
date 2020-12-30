@@ -2,8 +2,8 @@
 	<base href="/">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<script src="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.js"></script>
-	<link href="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.css" rel="stylesheet">
+	<script src="https://unpkg.com/material-components-web@9.0.0/dist/material-components-web.js"></script>
+	<link href="https://unpkg.com/material-components-web@9.0.0/dist/material-components-web.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -79,6 +79,10 @@
 		function startEffect(effect) {
 			fetch("/api/effect/" + effect, { method: "PUT" });
 		}
+
+		function setWhiteness(whiteness) {
+			fetch("/api/whiteness/" + whiteness, { method: "PUT" });
+		}
 	</script>
 </head>
 
@@ -144,15 +148,16 @@
 			<div class="card">
 				<span class="card-header">Lamp</span>
 				<div class="card-body">
-					<div class="mdc-slider" change="console.log('asdf')">
+					<div class="mdc-slider">
+						<input class="mdc-slider__input" type="range" min="0" max="100" value="50" name="volume"
+							aria-label="Continuous slider demo">
 						<div class="mdc-slider__track">
 							<div class="mdc-slider__track--inactive"></div>
 							<div class="mdc-slider__track--active">
 								<div class="mdc-slider__track--active_fill"></div>
 							</div>
 						</div>
-						<div class="mdc-slider__thumb" role="slider" tabindex="0" aria-label="Continuous slider demo"
-							aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+						<div class="mdc-slider__thumb">
 							<div class="mdc-slider__thumb-knob"></div>
 						</div>
 					</div>
@@ -169,8 +174,7 @@
 
 		<script>
 			sldr = mdc.slider.MDCSlider.attachTo(document.querySelector('.mdc-slider'));
-			sldr.root.addEventListener("change", ()=> console.log("change"));
-			console.log(sldr);
+			sldr.root.addEventListener('MDCSlider:change',() => setWhiteness(sldr.foundation.value));
 			mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
 		</script>
 </body>
