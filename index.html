@@ -90,7 +90,7 @@
 
 	<div class="row appbar">
 		<span class="col d-none d-sm-block">&nbsp;</span>
-		<span class="col">nCube</span>
+		<span class="col">HB 40 Cube</span>
 		<span class="col d-none d-sm-block">&nbsp;</span>
 	</div>
 	<div class="row">
@@ -167,14 +167,14 @@
 			</div>
 		</div>
 		<span class="col d-none d-sm-block">&nbsp;</span>
+	</div>
+	<div class="info row">
+		<span>nCube web interface by Lassi 2020</span>
+	</div>
 
-		<div class="info row">
-			<span>nCube web interface by Lassi 2020</span>
-		</div>
-
-		<script>
-			sldr = mdc.slider.MDCSlider.attachTo(document.querySelector('.mdc-slider'));
-			sldr.root.addEventListener('MDCSlider:change',() => setWhiteness(sldr.foundation.value));
-			mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
-		</script>
+	<script>
+		sldr = mdc.slider.MDCSlider.attachTo(document.querySelector('.mdc-slider'));
+		sldr.root.addEventListener('MDCSlider:change', () => setWhiteness(sldr.foundation.value));
+		mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
+	</script>
 </body>
