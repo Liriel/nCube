@@ -21,7 +21,7 @@ end
 
 app.run = function()
     -- check if we need to configure wifi
-    if(wifi.sta.status() == wifi.STA_IDLE and not file.exists("eus_params.lua"))then
+    if(wifi.sta.status() ~= wifi.STA_CONNECTING and not file.exists("eus_params.lua"))then
       -- todo register callback
       lights.Effect("random")
       enduser_setup.start(function()
